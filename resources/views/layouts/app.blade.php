@@ -18,16 +18,16 @@
     $nav[] = ['dashboard',          'Dashboard',    ['dashboard']];
     $nav[] = ['equipment.index',    'Equipment',    ['equipment.*']];
     
-    // Admin/Staff only
-    if(auth()->check() && !auth()->user()->isBorrower()) {
+    // Admin only
+    if(auth()->check() && auth()->user()->isAdmin()) {
         $nav[] = ['borrowers.index',    'Borrowers',    ['borrowers.*']];
     }
     
     // All users can see transactions (but borrowers only see their own, enforced in controller)
     $nav[] = ['borrowings.index',   'Transactions', ['borrowings.index', 'borrowings.create', 'borrowings.store', 'borrowings.show', 'borrowings.return.*']];
     
-    // Admin/Staff only
-    if(auth()->check() && !auth()->user()->isBorrower()) {
+    // Admin only
+    if(auth()->check() && auth()->user()->isAdmin()) {
         $nav[] = ['borrowings.overdue', 'Overdue',      ['borrowings.overdue']];
         $nav[] = ['borrowings.damaged', 'Damaged',      ['borrowings.damaged']];
     }
@@ -105,7 +105,7 @@
         </main>
 
         <footer class="px-6 py-4 border-t border-stone-200 bg-white text-xs text-slate-500">
-            Equipment Borrowing &amp; Tracking · Laravel {{ app()->version() }}
+            Equipment Borrowing &amp; Tracking
         </footer>
     </div>
 </div>

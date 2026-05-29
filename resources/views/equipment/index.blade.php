@@ -2,7 +2,6 @@
 
 @section('title', 'Equipment')
 @section('heading', 'Equipment Inventory')
-@section('subheading', 'Catalog of all assets with their availability and condition.')
 
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">

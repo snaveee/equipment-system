@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Transaction #'.$borrowing->id)
 @section('heading', 'Transaction #'.$borrowing->id)
-@section('subheading', 'Borrowing record details')
 
 @section('content')
 <div class="grid lg:grid-cols-2 gap-6">

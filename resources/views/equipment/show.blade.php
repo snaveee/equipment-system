@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', $equipment->name)
 @section('heading', $equipment->name)
-@section('subheading', 'Equipment detail and borrowing history')
 
 @section('content')
 <div class="grid lg:grid-cols-3 gap-6">
@@ -67,7 +66,7 @@
         @forelse($equipment->transactions as $t)
             <div class="py-3 border-b border-stone-100 last:border-0 flex items-center justify-between">
                 <div>
-                    <div class="font-medium text-slate-900">{{ $t->borrower->full_name ?? '—' }}</div>
+                    <div class="font-medium text-slate-900">{{ $t->borrower->name ?? '—' }}</div>
                     <div class="text-xs text-slate-500">{{ $t->purpose }}</div>
                     <div class="text-xs font-mono text-slate-500 mt-1">
                         {{ $t->borrow_date->format('M d, Y') }} → {{ optional($t->actual_return_date)->format('M d, Y') ?? $t->expected_return_date->format('M d, Y') }}

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Borrowers')
 @section('heading', 'Borrowers')
-@section('subheading', 'People who can borrow equipment. Ordered by borrowing frequency.')
 
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">

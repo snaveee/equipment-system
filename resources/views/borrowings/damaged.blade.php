@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Damaged Returns')
 @section('heading', 'Damaged Returns')
-@section('subheading', 'Equipment returned in damaged condition.')
 
 @section('content')
 <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden">

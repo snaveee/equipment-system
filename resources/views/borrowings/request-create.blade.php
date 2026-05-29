@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Request Equipment')
 @section('heading', 'Request Equipment')
-@section('subheading', 'Select equipment to borrow and provide details.')
 
 @section('content')
 <form method="POST" action="{{ route('borrowings.request.store') }}" class="max-w-2xl">

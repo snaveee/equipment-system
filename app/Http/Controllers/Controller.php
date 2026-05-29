@@ -5,21 +5,13 @@ namespace App\Http\Controllers;
 abstract class Controller
 {
     /**
-     * Authorize that the user is admin or staff.
+     * Authorize that the user is an admin.
      */
     protected function authorizeAdmin(): void
     {
-        if (auth()->user()?->isBorrower()) {
-            abort(403, 'Unauthorized action.');
+        if (!auth()->user()?->isAdmin()) {
+            abort(403, 'Admin access required.');
         }
-    }
-
-    /**
-     * Check if user is admin/staff, throw 403 if not.
-     */
-    protected function requireAdminOrStaff(): void
-    {
-        $this->authorizeAdmin();
     }
 
     /**

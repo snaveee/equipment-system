@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Reports')
 @section('heading', 'Reports & Statistics')
-@section('subheading', 'Analytical view over inventory and borrowings.')
 
 @section('content')
 <div class="mb-6 flex justify-end">

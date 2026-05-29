@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Overdue')
 @section('heading', 'Overdue Equipment')
-@section('subheading', 'Items not returned by the expected date.')
 
 @section('content')
 <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden">

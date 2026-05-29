@@ -2,7 +2,6 @@
 
 @section('title', 'My Dashboard')
 @section('heading', 'My Dashboard')
-@section('subheading', 'Your borrowing activity and outstanding items.')
 
 @section('content')
 @php

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Process Return')
 @section('heading', 'Process Return')
-@section('subheading', 'Record actual return date and condition.')
 
 @section('content')
 <div class="grid lg:grid-cols-3 gap-6">

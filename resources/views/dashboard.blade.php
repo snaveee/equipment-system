@@ -2,7 +2,6 @@
 
 @section('title', 'Dashboard')
 @section('heading', 'Dashboard')
-@section('subheading', 'Snapshot of inventory, transactions, and alerts.')
 
 @section('content')
 @php
@@ -43,7 +42,7 @@
             <div class="flex items-start justify-between py-3 border-b border-stone-100 last:border-0">
                 <div>
                     <div class="font-medium text-slate-900">{{ $t->equipment->name }}</div>
-                    <div class="text-xs text-slate-500">{{ $t->borrower->full_name }} · {{ $t->borrower->department }}</div>
+                    <div class="text-xs text-slate-500">{{ $t->borrower->name }} · {{ $t->borrower->department }}</div>
                 </div>
                 <span class="px-2 py-0.5 rounded text-xs font-medium bg-red-50 text-red-700 border border-red-200">{{ $t->days_overdue }}d overdue</span>
             </div>
@@ -89,7 +88,7 @@
                 <tbody>
                 @forelse($recent as $t)
                     <tr class="border-b border-stone-100 last:border-0">
-                        <td class="py-2.5 text-slate-800">{{ $t->borrower->full_name }}</td>
+                        <td class="py-2.5 text-slate-800">{{ $t->borrower->name }}</td>
                         <td class="py-2.5 text-slate-800">{{ $t->equipment->name }}</td>
                         <td class="py-2.5 font-mono text-xs text-slate-600">{{ $t->borrow_date->format('M d, Y') }}</td>
                         <td class="py-2.5 font-mono text-xs text-slate-600">{{ $t->expected_return_date->format('M d, Y') }}</td>

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Transactions')
 @section('heading', 'Borrowing Transactions')
-@section('subheading', 'Record of all borrow + return transactions.')
 
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">

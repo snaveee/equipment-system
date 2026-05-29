@@ -22,13 +22,16 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Staff User
+        // Example Borrower
         User::updateOrCreate(
-            ['email' => 'staff@example.com'],
+            ['email' => 'borrower@example.com'],
             [
-                'name' => 'Staff Member',
+                'name' => 'Example Borrower',
                 'password' => Hash::make('password'),
-                'role' => 'staff',
+                'role' => 'borrower',
+                'department' => 'General',
+                'position' => 'User',
+                'contact_number' => '09001234567',
             ]
         );
 
@@ -75,7 +78,7 @@ class DatabaseSeeder extends Seeder
                 ['email' => $email],
                 [
                     'name' => $name,
-                    'password' => Hash::make('TempPassword123!'),
+                    'password' => Hash::make('password'),
                     'role' => 'borrower',
                     'department' => $dept,
                     'position' => $pos,

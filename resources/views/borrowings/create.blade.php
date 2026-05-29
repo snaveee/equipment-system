@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('title', 'New Transaction')
 @section('heading', 'New Borrowing Transaction')
-@section('subheading', 'Record a borrower checking out a piece of equipment.')
 
 @section('content')
 @if($availableEquipment->isEmpty())
