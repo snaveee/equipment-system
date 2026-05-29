@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
                 ['email' => $email],
                 [
                     'name' => $name,
-                    'password' => Hash::make('TempPassword123!'), // Temporary password for first login
+                    'password' => Hash::make('TempPassword123!'),
                     'role' => 'borrower',
                     'department' => $dept,
                     'position' => $pos,

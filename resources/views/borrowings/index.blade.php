@@ -19,7 +19,11 @@
             <a href="{{ route('borrowings.index') }}" class="text-sm text-slate-500">Clear</a>
         @endif
     </form>
-    <a href="{{ route('borrowings.create') }}" class="px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">+ New Transaction</a>
+    @if(auth()->user()->isAdmin())
+        <a href="{{ route('borrowings.create') }}" class="px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">+ New Transaction</a>
+    @elseif(auth()->user()->isBorrower())
+        <a href="{{ route('borrowings.request.create') }}" class="px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">+ Request Equipment</a>
+    @endif
 </div>
 
 <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden">
@@ -27,7 +31,9 @@
         <thead class="bg-stone-50 text-xs font-mono uppercase tracking-wider text-slate-500 border-b border-stone-200">
             <tr>
                 <th class="text-left px-4 py-3">#</th>
-                <th class="text-left px-4 py-3">Borrower</th>
+                @if(auth()->user()->isAdmin())
+                    <th class="text-left px-4 py-3">Borrower</th>
+                @endif
                 <th class="text-left px-4 py-3">Equipment</th>
                 <th class="text-left px-4 py-3">Borrowed</th>
                 <th class="text-left px-4 py-3">Due</th>
@@ -40,10 +46,12 @@
             @forelse($transactions as $t)
                 <tr class="border-b border-stone-100 last:border-0 hover:bg-stone-50/60">
                     <td class="px-4 py-3 font-mono text-xs">#{{ $t->id }}</td>
-                    <td class="px-4 py-3">
-                        <div class="font-semibold">{{ $t->borrower->name }}</div>
-                        <div class="text-xs text-slate-500">{{ $t->borrower->department }}</div>
-                    </td>
+                    @if(auth()->user()->isAdmin())
+                        <td class="px-4 py-3">
+                            <div class="font-semibold">{{ $t->borrower->name }}</div>
+                            <div class="text-xs text-slate-500">{{ $t->borrower->department }}</div>
+                        </td>
+                    @endif
                     <td class="px-4 py-3">
                         <div>{{ $t->equipment->name }}</div>
                         <div class="text-xs font-mono text-slate-500">{{ $t->equipment->serial_number }}</div>
@@ -57,11 +65,14 @@
                         @if(! $t->actual_return_date && auth()->user()->isAdmin())
                             <span class="text-stone-300 mx-1">|</span>
                             <a href="{{ route('borrowings.return.form', $t) }}" class="text-slate-900 text-xs font-medium hover:underline underline-offset-2">Return</a>
+                        @elseif(! $t->actual_return_date && auth()->user()->isBorrower() && $t->user_id === auth()->id())
+                            <span class="text-stone-300 mx-1">|</span>
+                            <a href="{{ route('borrowings.request.return', $t) }}" class="text-slate-900 text-xs font-medium hover:underline underline-offset-2">Return</a>
                         @endif
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="8" class="px-4 py-12 text-center text-slate-500">No transactions yet.</td></tr>
+                <tr><td colspan="{{ auth()->user()->isAdmin() ? '8' : '7' }}" class="px-4 py-12 text-center text-slate-500">No transactions yet.</td></tr>
             @endforelse
         </tbody>
     </table>

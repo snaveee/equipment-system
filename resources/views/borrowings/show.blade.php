@@ -68,6 +68,11 @@
                class="block w-full text-center px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">
                 Process Return
             </a>
+        @elseif(! $borrowing->actual_return_date && auth()->user()->isBorrower() && $borrowing->user_id === auth()->id())
+            <a href="{{ route('borrowings.request.return', $borrowing) }}"
+               class="block w-full text-center px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">
+                Return Equipment
+            </a>
         @endif
     </div>
 </div>

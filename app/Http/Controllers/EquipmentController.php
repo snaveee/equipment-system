@@ -52,6 +52,8 @@ class EquipmentController extends Controller
 
     public function store(EquipmentRequest $request): RedirectResponse
     {
+        $this->authorizeAdmin();
+        
         $data = $request->validated();
 
         if ($request->hasFile('photo')) {
@@ -81,6 +83,8 @@ class EquipmentController extends Controller
 
     public function update(EquipmentRequest $request, Equipment $equipment): RedirectResponse
     {
+        $this->authorizeAdmin();
+        
         $data = $request->validated();
 
         if ($request->hasFile('photo')) {
@@ -117,6 +121,8 @@ class EquipmentController extends Controller
      */
     public function updateStatus(\Illuminate\Http\Request $request, Equipment $equipment): RedirectResponse
     {
+        $this->authorizeAdmin();
+        
         $data = $request->validate([
             'status' => ['required', \Illuminate\Validation\Rule::in(['available', 'borrowed', 'under_repair'])],
         ]);
@@ -142,12 +148,5 @@ class EquipmentController extends Controller
         });
 
         return back()->with('success', 'Equipment status updated to "'.str_replace('_',' ',$data['status']).'".');
-    }
-
-    private function authorizeAdmin(): void
-    {
-        if (! request()->user() || ! request()->user()->isAdmin()) {
-            abort(403, 'Admin access required.');
-        }
     }
 }

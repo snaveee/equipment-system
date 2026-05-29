@@ -17,13 +17,13 @@
         </select>
         <select name="status" class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm">
             <option value="">All status</option>
-            @foreach(['available','borrowed','under_repair'] as $s)
+            @foreach(['Available','Borrowed','Under_Repair'] as $s)
                 <option value="{{ $s }}" @selected(request('status')===$s)>{{ str_replace('_',' ',$s) }}</option>
             @endforeach
         </select>
         <select name="condition" class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm">
             <option value="">All conditions</option>
-            @foreach(['new','good','fair','damaged'] as $c)
+            @foreach(['New','Good','Fair','Damaged'] as $c)
                 <option value="{{ $c }}" @selected(request('condition')===$c)>{{ $c }}</option>
             @endforeach
         </select>

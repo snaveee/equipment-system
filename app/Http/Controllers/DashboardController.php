@@ -17,6 +17,45 @@ class DashboardController extends Controller
             ->where('status', 'active')
             ->update(['status' => 'overdue']);
 
+        $user = auth()->user();
+
+        // BORROWER: Show personal borrowing information
+        if ($user->isBorrower()) {
+            $stats = [
+                'active_borrows' => BorrowingTransaction::where('user_id', $user->id)
+                    ->whereIn('status', ['active', 'overdue'])
+                    ->count(),
+                'overdue_count' => BorrowingTransaction::where('user_id', $user->id)
+                    ->where('status', 'overdue')
+                    ->count(),
+                'total_borrowed' => BorrowingTransaction::where('user_id', $user->id)->count(),
+                'returned_count' => BorrowingTransaction::where('user_id', $user->id)
+                    ->where('status', 'returned')
+                    ->count(),
+            ];
+
+            $overdue = BorrowingTransaction::with('equipment')
+                ->where('user_id', $user->id)
+                ->where('status', 'overdue')
+                ->orderBy('expected_return_date')
+                ->get();
+
+            $active = BorrowingTransaction::with('equipment')
+                ->where('user_id', $user->id)
+                ->whereIn('status', ['active', 'overdue'])
+                ->orderBy('expected_return_date')
+                ->get();
+
+            $recent = BorrowingTransaction::with('equipment')
+                ->where('user_id', $user->id)
+                ->latest()
+                ->take(5)
+                ->get();
+
+            return view('dashboard.borrower', compact('stats', 'overdue', 'active', 'recent'));
+        }
+
+        // ADMIN/STAFF: Show system-wide information
         $stats = [
             'total_equipment' => Equipment::count(),
             'available' => Equipment::where('status', 'available')->count(),
@@ -44,6 +83,6 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        return view('dashboard', compact('stats', 'overdue', 'damaged', 'recent'));
+        return view('dashboard.admin-staff', compact('stats', 'overdue', 'damaged', 'recent'));
     }
 }

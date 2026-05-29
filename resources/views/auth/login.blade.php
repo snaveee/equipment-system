@@ -6,8 +6,7 @@
 <div class="min-h-screen flex items-center justify-center bg-stone-50 px-4">
     <div class="w-full max-w-sm">
         <div class="mb-8">
-            <h1 class="text-2xl font-semibold text-slate-900">Equipment Tracker</h1>
-            <p class="text-sm text-slate-500 mt-1">Sign in to continue.</p>
+            <h1 class="text-2xl text-center font-semibold text-slate-900">Equipment Tracker</h1>
         </div>
 
         @include('partials.flash')

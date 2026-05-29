@@ -40,6 +40,16 @@ Route::middleware(['auth'])->group(function () {
             ->middleware('role:admin')->name('return.form');
         Route::post('/{borrowing}/return', [BorrowingController::class, 'processReturn'])
             ->middleware('role:admin')->name('return.process');
+        
+        // Borrower-initiated actions
+        Route::get('/request/create', [BorrowingController::class, 'borrowerRequestCreate'])
+            ->middleware('role:borrower')->name('request.create');
+        Route::post('/request/store', [BorrowingController::class, 'borrowerRequestStore'])
+            ->middleware('role:borrower')->name('request.store');
+        Route::get('/{borrowing}/request-return', [BorrowingController::class, 'borrowerReturnForm'])
+            ->middleware('role:borrower')->name('request.return');
+        Route::post('/{borrowing}/request-return', [BorrowingController::class, 'borrowerProcessReturn'])
+            ->middleware('role:borrower')->name('request.return.process');
     });
 
     // Reports - admin only

@@ -33,7 +33,8 @@
             @endif
         </div>
 
-        {{-- Status quick-change available to ALL roles --}}
+        {{-- Status quick-change available to admin and staff only --}}
+        @if(!auth()->user()->isBorrower())
         <form method="POST" action="{{ route('equipment.status', $equipment) }}"
               class="mt-6 pt-4 border-t border-stone-200 space-y-2">
             @csrf @method('PATCH')
@@ -48,6 +49,7 @@
             </div>
             <p class="text-xs text-slate-500">Moving off "borrowed" auto-closes any open transaction for this item.</p>
         </form>
+        @endif
 
         @if(auth()->user()->isAdmin())
             <div class="mt-4 pt-4 border-t border-stone-200 flex gap-2">

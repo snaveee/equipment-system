@@ -8,13 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Drop the old borrower_id foreign key and column from borrowing_transactions
         Schema::table('borrowing_transactions', function (Blueprint $table) {
-            // Add user_id column if not exists
-            if (!Schema::hasColumn('borrowing_transactions', 'user_id')) {
-                $table->foreignId('user_id')->nullable()->after('id')->constrained('users')->cascadeOnDelete();
-            }
-            
-            // Drop the old borrower_id foreign key and column
             if (Schema::hasColumn('borrowing_transactions', 'borrower_id')) {
                 $table->dropForeign(['borrower_id']);
                 $table->dropColumn('borrower_id');
@@ -41,8 +36,6 @@ return new class extends Migration
         // Restore borrower_id column
         Schema::table('borrowing_transactions', function (Blueprint $table) {
             $table->foreignId('borrower_id')->after('id')->constrained('borrowers')->cascadeOnDelete();
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
         });
     }
 };

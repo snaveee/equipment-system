@@ -10,15 +10,27 @@
 <body class="h-full bg-stone-50 text-slate-800 antialiased">
 
 @php
-    // Each nav entry: [route name, label, list of route patterns that should highlight it as active]
-    $nav = [
-        ['dashboard',          'Dashboard',    ['dashboard']],
-        ['equipment.index',    'Equipment',    ['equipment.*']],
-        ['borrowers.index',    'Borrowers',    ['borrowers.*']],
-        ['borrowings.index',   'Transactions', ['borrowings.index', 'borrowings.create', 'borrowings.store', 'borrowings.show', 'borrowings.return.*']],
-        ['borrowings.overdue', 'Overdue',      ['borrowings.overdue']],
-        ['borrowings.damaged', 'Damaged',      ['borrowings.damaged']],
-    ];
+    // Borrowers can see: Dashboard, Equipment, Transactions
+    // Admin/Staff can see all: Dashboard, Equipment, Borrowers, Transactions, Overdue, Damaged
+    $nav = [];
+    
+    // All users
+    $nav[] = ['dashboard',          'Dashboard',    ['dashboard']];
+    $nav[] = ['equipment.index',    'Equipment',    ['equipment.*']];
+    
+    // Admin/Staff only
+    if(auth()->check() && !auth()->user()->isBorrower()) {
+        $nav[] = ['borrowers.index',    'Borrowers',    ['borrowers.*']];
+    }
+    
+    // All users can see transactions (but borrowers only see their own, enforced in controller)
+    $nav[] = ['borrowings.index',   'Transactions', ['borrowings.index', 'borrowings.create', 'borrowings.store', 'borrowings.show', 'borrowings.return.*']];
+    
+    // Admin/Staff only
+    if(auth()->check() && !auth()->user()->isBorrower()) {
+        $nav[] = ['borrowings.overdue', 'Overdue',      ['borrowings.overdue']];
+        $nav[] = ['borrowings.damaged', 'Damaged',      ['borrowings.damaged']];
+    }
 @endphp
 
 @auth
