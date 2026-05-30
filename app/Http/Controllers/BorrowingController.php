@@ -32,15 +32,6 @@ class BorrowingController extends Controller
             $query->where('status', $status);
         }
 
-        if ($search = $request->input('search')) {
-            $query->whereHas('borrower', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%");
-            })->orWhereHas('equipment', function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('serial_number', 'like', "%{$search}%");
-            });
-        }
-
         $transactions = $query->latest()->paginate(10)->withQueryString();
 
         return view('borrowings.index', compact('transactions'));

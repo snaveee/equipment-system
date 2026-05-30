@@ -4,14 +4,7 @@
 
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-    <form method="GET" class="flex items-center gap-2">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name, email, department..."
-               class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm w-80 focus:border-slate-900 outline-none">
-        <button class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium">Search</button>
-        @if(request('search'))
-            <a href="{{ route('borrowers.index') }}" class="text-sm text-slate-500">Clear</a>
-        @endif
-    </form>
+    <div></div>
     @if(auth()->user()->isAdmin())
         <a href="{{ route('borrowers.create') }}" class="px-4 py-2 rounded-md bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">+ Add Borrower</a>
     @endif

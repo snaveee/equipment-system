@@ -15,20 +15,11 @@ class BorrowerController extends Controller
     {
         $this->authorizeAdmin();
 
-        $query = User::where('role', 'borrower')->withCount('transactions');
-
-        if ($search = $request->input('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('department', 'like', "%{$search}%");
-            });
-        }
-
-        $borrowers = $query->orderByDesc('transactions_count')
+        $borrowers = User::where('role', 'borrower')
+            ->withCount('transactions')
+            ->orderByDesc('transactions_count')
             ->orderBy('name')
-            ->paginate(10)
-            ->withQueryString();
+            ->paginate(10);
 
         return view('borrowers.index', compact('borrowers'));
     }

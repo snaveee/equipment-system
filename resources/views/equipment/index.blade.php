@@ -6,8 +6,6 @@
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
     <form method="GET" action="{{ route('equipment.index') }}" class="flex flex-wrap items-center gap-2 flex-1">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search name, serial..."
-               class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm focus:border-slate-900 outline-none w-64">
         <select name="category" class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm">
             <option value="">All categories</option>
             @foreach($categories as $c)
@@ -27,7 +25,7 @@
             @endforeach
         </select>
         <button class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium hover:bg-slate-700">Filter</button>
-        @if(request()->hasAny(['search','category','status','condition']))
+        @if(request()->hasAny(['category','status','condition']))
             <a href="{{ route('equipment.index') }}" class="text-sm text-slate-500 hover:text-slate-900">Clear</a>
         @endif
     </form>

@@ -5,8 +5,6 @@
 @section('content')
 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
     <form method="GET" class="flex flex-wrap items-center gap-2">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Search borrower or equipment"
-               class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm w-72 focus:border-slate-900 outline-none">
         <select name="status" class="px-4 py-2 rounded-full border border-stone-300 bg-white text-sm">
             <option value="">All statuses</option>
             @foreach(['active','overdue','returned'] as $s)
@@ -14,7 +12,7 @@
             @endforeach
         </select>
         <button class="px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium">Filter</button>
-        @if(request()->hasAny(['search','status']))
+        @if(request('status'))
             <a href="{{ route('borrowings.index') }}" class="text-sm text-slate-500">Clear</a>
         @endif
     </form>

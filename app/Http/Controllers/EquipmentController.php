@@ -12,19 +12,11 @@ use Illuminate\View\View;
 class EquipmentController extends Controller
 {
     /**
-     * List all equipment with search and filters.
+     * List all equipment with filters.
      */
     public function index(Request $request): View
     {
         $query = Equipment::query();
-
-        if ($search = $request->input('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('serial_number', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
-            });
-        }
 
         if ($category = $request->input('category')) {
             $query->where('category', $category);
